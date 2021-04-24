@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Confirm</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css"/>
+</head>
+<body>
+<h1>Registration completed</h1>
+<table id="confirm">
+    <tr>
+        <th>First Name</th>
+        <td th:text="${saved.getFirstName()}"></td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td th:text="${saved.getLastName()}"></td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td th:text="${saved.getGender()}"></td>
+    </tr>
+    <tr>
+        <th>Birth Date</th>
+        <td th:text="${#dates.format(saved.getDateOfBirth(), 'yyyy-MM-dd')}"></td>
+    </tr>
+    <tr>
+        <th>Reason</th>
+        <td><textarea style="width:100%; resize: none" rows="15" th:text="${saved.getReason()}" readonly="true"></textarea></td>
+    </tr>
+</table>
+<p></p>
+</body>
+</html>

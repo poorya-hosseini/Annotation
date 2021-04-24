@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <h:outputStylesheet library="css" name="default.css"/>
+    <title>Optiscan</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css"/>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+    <script>
+    var currentDate = new Date();
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            yearRange: "-100:-15"
+        }).on("show", function() {
+            $(this).val(currentDate).datepicker('update');
+        });
+        $( "#datepicker" ).datepicker( "option", "dateFormat",'yy-mm-dd');
+    });
+
+    </script>
+
+</head>
+<body>
+<h:body>
+    <h1>Registration</h1>
+    <form action="#" th:action="@{/}" th:object="${person}" method="post">
+        <table>
+            <tr>
+                <td>First name:</td>
+                <td><input type="text" th:field="*{firstName}"/></td>
+                <td class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName Error
+                </td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td><input type="text" th:field="*{lastName}"/></td>
+                <td class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName Error</td>
+            </tr>
+            <tr>
+                <td>Date of birth:</td>
+                <td><input type="text" th:field="*{dateOfBirth}" id="datepicker" readonly="readonly"/></td>
+                <td class="error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">dateOfBirth
+                    Error
+                </td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td><select th:field="*{gender}">
+                    <option th:each="type : ${T(com.optiscan.entity.Gender).values()}"
+                            th:value="${{type}}"
+                            th:text="${type}">
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p>Why are you applying to this job?</p>
+                    <textarea style="width:100%;" rows="15" th:field="*{reason}"></textarea>
+                    <p class="error" th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></p>
+                </td>
+            </tr>
+        </table>
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
+</h:body>
+</body>
+</html>
